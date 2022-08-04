@@ -51,4 +51,16 @@ public class ArticleRepository {
 
         return sql.insert();
     }
+
+    public long modify(long id, String title, String body, boolean isBlind) {
+        SecSql sql = myMap.genSecSql();
+        sql
+                .append("UPDATE article")
+                .append("SET modifiedDate = NOW()")
+                .append(", title = ?", title)
+                .append(", body = ?", body)
+                .append(", isBlind = ?", isBlind)
+                .append("WHERE id = ?", id);
+        return sql.update();
+    }
 }
