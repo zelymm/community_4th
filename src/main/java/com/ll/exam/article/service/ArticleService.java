@@ -32,4 +32,8 @@ public class ArticleService {
     public long modify(long id, String title, String body, boolean isBlind) {
         return articleRepository.modify(id, title, body, isBlind);
     }
+
+    public void delete(long id) {
+        articleRepository.delete(id);
+    }
 }
