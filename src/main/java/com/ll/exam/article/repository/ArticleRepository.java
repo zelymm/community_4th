@@ -71,4 +71,29 @@ public class ArticleRepository {
                 .append("WHERE id = ?", id);
         sql.update();
     }
+
+    public ArticleDto getPrevArticle(long id) {
+        SecSql sql = myMap.genSecSql();
+        sql
+                .append("SELECT *")
+                .append("FROM article")
+                .append("WHERE id < ?", id)
+                .append("AND isBlind = 0")
+                .append("ORDER BY id DESC")
+                .append("LIMIT 1");
+        return sql.selectRow(ArticleDto.class);
+    }
+
+    public ArticleDto getNextArticle(long id) {
+        SecSql sql = myMap.genSecSql();
+        sql
+                .append("SELECT *")
+                .append("FROM article")
+                .append("WHERE id > ?", id)
+                .append("AND isBlind = 0")
+                .append("ORDER BY id ASC")
+                .append("LIMIT 1");
+        return sql.selectRow(ArticleDto.class);
+
+    }
 }
